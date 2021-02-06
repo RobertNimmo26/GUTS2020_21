@@ -7,12 +7,8 @@ export default function MapComponent() {
     return (
         <View style={styles.container}>
             <MapView 
-                style={styles.map} 
-                initialRegion={{
-                    latitude: "55.8724",
-                    longitude: "4.2891",
-                }}
-                />
+                style={styles.map}
+            />
         </View>
     );
 }
