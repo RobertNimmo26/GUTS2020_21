@@ -31,12 +31,17 @@ export default function TabOneScreen() {
     })();
   }, []);
 
-  let text = "Waiting..";
+  let text = <Text>Waiting...</Text>;
   if (errorMsg != "") {
-    text = errorMsg;
+    text = <Text>Error</Text>;
   } else if (location) {
-    text = latitude + " " + longitude;
+    text = 
+    <Text>
+      {latitude}   {longitude}
+    </Text>;
   }
+
+
 
   return (
     <View style={styles.container}>
@@ -48,9 +53,9 @@ export default function TabOneScreen() {
         darkColor="rgba(255,255,255,0.1)"
       />
       <Button
-        title="Press me"
+        title={"Press me"}
         color="#841584"
-        onPress={() => addCoords("hello", 123.122, 57.888, "test")}
+        onPress={() => addCoords("hello", {latitude}, {longitude}, "test")}
       />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>

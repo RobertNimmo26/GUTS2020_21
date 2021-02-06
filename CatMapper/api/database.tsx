@@ -2,11 +2,11 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { db } from "../config/keys";
 
-export const addCoords = (name: any, log: any, lat: any, description: any) => {
+export const addCoords = (name: any, latitude: any, longitude: any, description: any) => {
   db.ref("/cats").push({
     name: name,
-    log: log,
-    lat: lat,
+    latitude: latitude,
+    longitude: longitude,
     description: description,
     createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
   });
