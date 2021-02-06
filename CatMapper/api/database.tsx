@@ -10,15 +10,28 @@ export const addCoords = (
 ) => {
   db.ref("/cats").push({
     name: name,
-    latitude,
-    longitude,
+    latitude: latitude,
+    longitude: longitude,
     description: description,
     createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
   });
 };
 
 export const getCoords = () => {
-  db.ref("/cats").once("value", function (snapshot) {
-    console.log(snapshot.val());
+  const cats: { [index: string]: never[] } = [];
+  const ref = db.ref("/cats");
+  ref.once("value", (snapshot) => {
+    snapshot.forEach((snapshotchild) => {
+      snapshotchild.forEach((data) => {
+        const obj = {};
+        Object.keys(cats).forEach((item) => {
+          obj[cats[item].name] = {
+            latitude: cats[item].latitude,
+            longitude: cats[item].longitude,
+          };
+        });
+        console.log(obj);
+      });
+    });
   });
 };

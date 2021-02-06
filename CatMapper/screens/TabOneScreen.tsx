@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, StyleSheet } from "react-native";
+import { Alert, Button, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 
 import EditScreenInfo from "../components/EditScreenInfo";
@@ -56,7 +56,11 @@ export default function TabOneScreen() {
         color="#841584"
         onPress={() => addCoords("hello", { latitude }, { longitude }, "test")}
       />
-      <Button title={"Press me2"} color="#841584" onPress={() => getCoords()} />
+      <Button
+        title={"Press me2"}
+        color="#841584"
+        onPress={() => console.log(getCoords())}
+      />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>
         Coords are: {text}
