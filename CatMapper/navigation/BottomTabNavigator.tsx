@@ -45,14 +45,14 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
-
+const CatMapperVersion = "CatMapper 0.1"
 function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        options={{ headerTitle: CatMapperVersion }}
       />
     </TabOneStack.Navigator>
   );
@@ -66,7 +66,7 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerTitle: CatMapperVersion }}
       />
     </TabTwoStack.Navigator>
   );

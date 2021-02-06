@@ -2,13 +2,15 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
+import MapComponent from '../components/MapComponent';
 import { Text, View } from '../components/Themed';
+
 
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>rsmello12</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Text style={styles.title}>Map</Text>
+      <MapComponent/>
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
   );
