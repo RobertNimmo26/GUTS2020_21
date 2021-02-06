@@ -29,7 +29,7 @@
       "package": "com.catmapper",
       "config": {
         "googleMaps" : {
-          "apiKey" : "AIzaSyBFXv2qsVLVdEXFDiG2sdVWcOqS_vaFQFY"
+          "apiKey" : ""
         }
       }
     },
