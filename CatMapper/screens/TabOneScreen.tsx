@@ -1,13 +1,14 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import * as Location from 'expo-location';
+import * as React from "react";
+import { Button, StyleSheet } from "react-native";
+import * as Location from "expo-location";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import MapComponent from '../components/MapComponent';
+import EditScreenInfo from "../components/EditScreenInfo";
+import MapComponent from "../components/MapComponent";
 
 import { Text, View } from "../components/Themed";
 
 import { addCoords } from "../api/database";
+import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
   const [location, setLocation] = useState(null);
@@ -15,11 +16,10 @@ export default function TabOneScreen() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
 
-
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
-      if (status !== 'granted') {
+      if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
         return;
       }
@@ -31,19 +31,16 @@ export default function TabOneScreen() {
     })();
   }, []);
 
-  let text = 'Waiting..';
+  let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
-  } else if (location){
+  } else if (location) {
     text = latitude + " " + longitude;
   }
 
-
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
-      <MapComponent/>
-=======
+      <MapComponent />
       <Text style={styles.title}>helloo</Text>
       <View
         style={styles.separator}
@@ -55,11 +52,10 @@ export default function TabOneScreen() {
         color="#841584"
         onPress={() => addCoords("hello", 123.122, 57.888, "test")}
       />
->>>>>>> Add-Firebase-Database
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>
-        Coords are: {text}{"\n"}
-       
+        Coords are: {text}
+        {"\n"}
       </Text>
     </View>
   );
