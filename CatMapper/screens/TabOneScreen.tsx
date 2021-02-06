@@ -11,10 +11,10 @@ import { addCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  const [location, setLocation] = useState(Object);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +32,7 @@ export default function TabOneScreen() {
   }, []);
 
   let text = "Waiting..";
-  if (errorMsg) {
+  if (errorMsg != "") {
     text = errorMsg;
   } else if (location) {
     text = latitude + " " + longitude;
