@@ -26,12 +26,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.catmapper",
-      "config": {
-        "googleMaps" : {
-          "apiKey" : "AIzaSyB66GWy2pyEcXxKmGfTihW03Z43nnv6Lks"
-        }
-      }
+      "package": "com.catmapper"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -1,28 +1,25 @@
-
-import React from 'react';
-import MapView from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React from "react";
+import MapView from "react-native-maps";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import ENV from "../config/env";
 
 export default function MapComponent() {
-    return (
-        <View style={styles.container}>
-            <MapView 
-                style={styles.map}
-                showsUserLocation={true}
-            />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <MapView style={styles.map} showsUserLocation={true} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: (Dimensions.get('window').height/3)*2,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: Dimensions.get("window").width,
+    height: (Dimensions.get("window").height / 3) * 2,
+  },
 });
