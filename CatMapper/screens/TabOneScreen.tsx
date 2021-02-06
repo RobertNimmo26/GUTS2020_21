@@ -35,7 +35,8 @@ export default function TabOneScreen() {
 
     return (
         <View style={styles.container}>
-            <MapComponent />
+            <MapComponent latitude={latitude} longitude={longitude} />
+            
             <View
                 style={styles.separator}
                 lightColor="#eee"
