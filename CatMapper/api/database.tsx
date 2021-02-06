@@ -22,7 +22,7 @@ export const getCoords = () => {
     const ref = db.ref("/cats"); 
     ref.on("value", function(snapshot: any[]){
         // Array of Cats
-        var cats: any[] = [];
+        var cats: Object[] = [];
         // Array of Coordinates
         var coords = [];
         snapshot.forEach((cat) => {
@@ -31,11 +31,11 @@ export const getCoords = () => {
             // Pushing the Latitude and Longitude objects pair by pair to the array
             coords.push([cat.val().latitude, cat.val().longitude]);
             // console.log(typeof (cat.val().latitude));
-            // console.log((cat.val().latitude));
+            console.log((cat.val()));
         })
         return cats;
 
-        
+
 
     }, function (errorObject: { code: string; }) {
         console.log("The read failed: " + errorObject.code);

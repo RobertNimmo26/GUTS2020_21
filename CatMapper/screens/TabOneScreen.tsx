@@ -59,7 +59,9 @@ export default function TabOneScreen() {
       <Button
         title={"Press me2"}
         color="#841584"
-        onPress={() => console.log(getCoords())}
+        onPress={() => (
+            fetchData()
+        )}
       />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>
@@ -68,6 +70,12 @@ export default function TabOneScreen() {
       </Text>
     </View>
   );
+}
+
+async function fetchData(): Promise<void>{
+    const [cats, setCats] = useState();
+    setCats(getCoords());
+    console.log(cats);
 }
 
 const styles = StyleSheet.create({
