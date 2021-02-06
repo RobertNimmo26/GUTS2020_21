@@ -7,7 +7,7 @@ import MapComponent from "../components/MapComponent";
 
 import { Text, View } from "../components/Themed";
 
-import { addCoords } from "../api/database";
+import { addCoords, getCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
@@ -35,13 +35,12 @@ export default function TabOneScreen() {
   if (errorMsg != "") {
     text = <Text>Error</Text>;
   } else if (location) {
-    text = 
-    <Text>
-      {latitude}   {longitude}
-    </Text>;
+    text = (
+      <Text>
+        {latitude} {longitude}
+      </Text>
+    );
   }
-
-
 
   return (
     <View style={styles.container}>
@@ -55,8 +54,9 @@ export default function TabOneScreen() {
       <Button
         title={"Press me"}
         color="#841584"
-        onPress={() => addCoords("hello", {latitude}, {longitude}, "test")}
+        onPress={() => addCoords("hello", { latitude }, { longitude }, "test")}
       />
+      <Button title={"Press me2"} color="#841584" onPress={() => getCoords()} />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>
         Coords are: {text}

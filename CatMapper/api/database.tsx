@@ -17,12 +17,8 @@ export const addCoords = (
   });
 };
 
-// export const getCoords = () => {
-//   db.ref("/cats").once({
-//     name: name,
-//     log: log,
-//     lat: lat,
-//     description: description,
-//     createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
-//   });
-// };
+export const getCoords = () => {
+  db.ref("/cats").once("value", function (snapshot) {
+    console.log(snapshot.val());
+  });
+};
