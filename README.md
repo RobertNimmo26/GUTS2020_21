@@ -4,7 +4,7 @@ The app allows you to find cats nearby during your daily lockdown walks.
 
 ## Overview
 
-Are you trying to add some excitement in your daily lockdown walk? When reading the challenge SAS about improving lives during lockdown, we taught about helping all the cat lovers out there find a cat around. 
+Are you trying to add some excitement in your daily lockdown walk? When reading the challenge SAS about improving lives during lockdown, we taught about helping all the cat lovers out there find a cat.
 
 
 ## Features
