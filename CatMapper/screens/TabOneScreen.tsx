@@ -11,74 +11,84 @@ import { addCoords, getCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
-  const [location, setLocation] = useState(Object);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+    const [location, setLocation] = useState(Object);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
+    useEffect(() => {
+        (async () => {
+            fetchLocation();
+        })();
+    }, []);
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      setLatitude(location.coords.latitude);
-      setLongitude(location.coords.longitude);
-    })();
-  }, []);
+    let text = <Text>Waiting...</Text>;
+    if (errorMsg != "") {
+        text = <Text>Error</Text>;
+    } else if (location) {
+        text = (
+            <Text>
+                {latitude} {longitude}
+            </Text>
+        );
+    }
 
-  let text = <Text>Waiting...</Text>;
-  if (errorMsg != "") {
-    text = <Text>Error</Text>;
-  } else if (location) {
-    text = (
-      <Text>
-        {latitude} {longitude}
-      </Text>
+    return (
+        <View style={styles.container}>
+            <MapComponent />
+            <View
+                style={styles.separator}
+                lightColor="#eee"
+                darkColor="rgba(255,255,255,0.1)"
+            />
+            <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+            <Button
+                title={"Press me"}
+                color="#841584"
+                onPress={() => addCoords("hello", { latitude }, { longitude }, "test")}
+            />
+            <Button title={"Press me2"} color="#841584" onPress={() => {
+                                                            fetchLocation()
+                                                            getCoords()}} />
+            <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+            <Text style={styles.title}>
+                Coords are: {text}
+                {"\n"}
+            </Text>
+        </View>
     );
-  }
 
-  return (
-    <View style={styles.container}>
-      <MapComponent />
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <Button
-        title={"Press me"}
-        color="#841584"
-        onPress={() => addCoords("hello", { latitude }, { longitude }, "test")}
-      />
-      <Button title={"Press me2"} color="#841584" onPress={() => getCoords()} />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <Text style={styles.title}>
-        Coords are: {text}
-        {"\n"}
-      </Text>
-    </View>
-  );
+    async function fetchLocation() {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== "granted") {
+            setErrorMsg("Permission to access location was denied");
+            return;
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        setLatitude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
+
+        return true;
+    }
 }
 
+
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    separator: {
+        marginVertical: 30,
+        height: 1,
+        width: "80%",
+    },
 });
