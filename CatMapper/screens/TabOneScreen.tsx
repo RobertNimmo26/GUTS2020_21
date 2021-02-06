@@ -4,9 +4,10 @@ import * as Location from 'expo-location';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import MapComponent from '../components/MapComponent';
-import { Text, View } from '../components/Themed';
-import { useEffect, useState } from 'react';
 
+import { Text, View } from "../components/Themed";
+
+import { addCoords } from "../api/database";
 
 export default function TabOneScreen() {
   const [location, setLocation] = useState(null);
@@ -40,7 +41,21 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
       <MapComponent/>
+=======
+      <Text style={styles.title}>helloo</Text>
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+      <Button
+        title="Press me"
+        color="#841584"
+        onPress={() => addCoords("hello", 123.122, 57.888, "test")}
+      />
+>>>>>>> Add-Firebase-Database
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Text style={styles.title}>
         Coords are: {text}{"\n"}
@@ -53,16 +68,16 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });
