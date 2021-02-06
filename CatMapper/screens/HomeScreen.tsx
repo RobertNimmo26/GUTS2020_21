@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Location from "expo-location";
 
 import { Button as PaperButton } from "react-native-paper";
