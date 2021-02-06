@@ -22,6 +22,7 @@ export default function TabOneScreen() {
   useEffect(() => {
     (async () => {
       fetchLocation();
+      fetchCatLocations()
     })();
   }, []);
 
@@ -50,7 +51,7 @@ export default function TabOneScreen() {
           mode="contained"
           onPress={() => {
             fetchLocation();
-            addCoords("hello", { latitude }, { longitude }, "test");
+            addCoords("hello", latitude, longitude, "test");
           }}
           theme={{ roundness: 40 }}
           style={{
@@ -63,7 +64,7 @@ export default function TabOneScreen() {
         </PaperButton>
         <PaperButton
           mode="contained"
-          onPress={() => getCoords()}
+          onPress={() => fetchCatLocations()}
           theme={{ roundness: 40 }}
           style={{
             width: 200,
@@ -95,7 +96,14 @@ export default function TabOneScreen() {
 
     return true;
   }
+
+  async function fetchCatLocations() {
+    let locs = await getCoords();
+
+  }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

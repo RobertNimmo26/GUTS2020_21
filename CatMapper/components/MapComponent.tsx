@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Heatmap } from "react-native-maps";
+import { getCoords } from "../api/database";
 
 //import fetchLocation from "../screens/TabOneScreen";
 
-export default function MapComponent(props: {
-  latitude: number;
-  longitude: number;
-}) {
+export default function MapComponent(props: {latitude: number; longitude: number;}) {
   const latitude = props.latitude;
   const longitude = props.longitude;
+
+
 
   console.log(latitude, longitude);
 

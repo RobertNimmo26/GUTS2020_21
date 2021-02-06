@@ -14,7 +14,7 @@ export const addCoords = (
         latitude: latitude,
         longitude: longitude,
         description: description,
-        createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+        createdAt: firebase.database.ServerValue.TIMESTAMP
     });
 };
 
@@ -62,7 +62,7 @@ export const getCats = () => {
 
 export const getCoords = () => {
     // Array of Coordinates
-    var coords: any[][] = [];
+    var coords: number[][] = [[0,0]];
 
     const ref = db.ref("/cats");
     ref.on("value", function (snapshot) {
