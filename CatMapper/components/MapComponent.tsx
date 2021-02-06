@@ -8,6 +8,7 @@ export default function MapComponent() {
         <View style={styles.container}>
             <MapView 
                 style={styles.map}
+                showsUserLocation={true}
             />
         </View>
     );
@@ -22,6 +23,6 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: (Dimensions.get('window').height/3)*2,
     },
 });
