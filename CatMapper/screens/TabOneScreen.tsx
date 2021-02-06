@@ -18,16 +18,7 @@ export default function TabOneScreen() {
 
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestPermissionsAsync();
-            if (status !== "granted") {
-                setErrorMsg("Permission to access location was denied");
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            setLatitude(location.coords.latitude);
-            setLongitude(location.coords.longitude);
+            fetchLocation();
         })();
     }, []);
 
@@ -52,12 +43,13 @@ export default function TabOneScreen() {
             />
             <EditScreenInfo path="/screens/TabOneScreen.tsx" />
             <Button
-                title={"Press me"}
-                color="#841584"
+                title={"Cat Found (Adds to DB)"}
+                color="#FF0000"
                 onPress={() => addCoords("hello", latitude, longitude, "test")}
             />
+            
             <Button
-                title={"Press me2"}
+                title={"Fetch DB entries"}
                 color="#841584"
                 onPress={() => (
                     fetchCatLocations()
@@ -70,6 +62,22 @@ export default function TabOneScreen() {
             </Text>
         </View>
     );
+
+    async function fetchLocation() {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== "granted") {
+            setErrorMsg("Permission to access location was denied");
+            return;
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        setLatitude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
+
+        return true;
+    }
+
 }
 
 async function fetchCats() {
@@ -80,6 +88,8 @@ async function fetchCats() {
 async function fetchCatLocations(){
     let coords = getCoords();
     console.log(coords);
+
+
 }
 
 
