@@ -6,7 +6,9 @@ import ENV from "../config/env";
 export default function MapComponent() {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} showsUserLocation={true} />
+      <MapView 
+      style={styles.map} 
+      showsUserLocation={true} />
     </View>
   );
 }

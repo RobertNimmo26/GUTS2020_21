@@ -45,12 +45,12 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <MapComponent />
-      <Text style={styles.title}>helloo</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <Button
         title={"Press me"}
         color="#841584"
