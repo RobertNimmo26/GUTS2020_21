@@ -45,11 +45,10 @@ export default function TabOneScreen() {
             <Button
                 title={"Press me"}
                 color="#841584"
-                onPress={() => addCoords("hello", { latitude }, { longitude }, "test")}
+                onPress={() => { fetchLocation()
+                                 addCoords("hello", { latitude }, { longitude }, "test")}}
             />
-            <Button title={"Press me2"} color="#841584" onPress={() => {
-                                                            fetchLocation()
-                                                            getCoords()}} />
+            <Button title={"Press me2"} color="#841584" onPress={() => getCoords()} />
             <EditScreenInfo path="/screens/TabOneScreen.tsx" />
             <Text style={styles.title}>
                 Coords are: {text}
