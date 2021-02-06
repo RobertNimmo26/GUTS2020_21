@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, Alert } from 'react-native';
 
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
@@ -16,6 +16,12 @@ export default function EditScreenInfo({ path }: { path: string }) {
           darkColor="rgba(255,255,255,0.8)">
           Are there any cats here?    
         </Text>
+        <Button
+          title="Learn More"
+          color="#FF0000"
+          accessibilityLabel="Learn more about this purple button"
+          onPress={() => Alert.alert('Button with adjusted color pressed')}
+        />
 
        
       </View>
