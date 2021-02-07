@@ -85,9 +85,13 @@ export const getCoords = () => {
   return coords;
 };
 
-export const GetCoordsObject = () => {
+export const GetCoordsObjectOld = () => {
   // Array of Coordinates
-  var coords: Object[] = [];
+  var coords: Object[] = [{
+    latitude: 0,
+    longitude: 0,
+    weight: 1,
+  }];
 
   const ref = db.ref("/cats");
   ref.on(
@@ -109,6 +113,39 @@ export const GetCoordsObject = () => {
     }
   );
 
-  console.log("DB: c" + coords);
+  // console.log("DB: c" + coords);
+  return coords;
+};
+
+
+export const GetCoordsObject = () => {
+  // Array of Coordinates
+  var coords: Object[] = [{
+    latitude: 0,
+    longitude: 0,
+    weight: 1,
+  }];
+
+  const ref = db.ref("/cats");
+  ref.once("value")
+    .then(function (snapshot) {
+      // Array of Cats
+      snapshot.forEach(function(cat) {
+        // Pushing the Latitude and Longitude objects pair by pair to the array
+        coords.push({
+          latitude: cat.val().latitude,
+          longitude: cat.val().longitude,
+          weight: 1,
+        });
+        //console.log(cat.val().latitude);
+      });
+    },
+    function (errorObject: { code: string }) {
+      console.log("The read failed: " + errorObject.code);
+    }
+  );
+
+  console.log("DB: c");
+  console.log(coords);
   return coords;
 };
