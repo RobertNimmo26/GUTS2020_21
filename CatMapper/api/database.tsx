@@ -4,16 +4,16 @@ import { useState } from "react";
 import { db } from "../config/keys";
 
 export const addCoords = (
-  name: any,
+  description: any,
   latitude: any,
   longitude: any,
-  description: any
+  location: any
 ) => {
   db.ref("/cats").push({
-    name: name,
+    description: description,
     latitude: latitude,
     longitude: longitude,
-    description: description,
+    location: location,
     createdAt: firebase.database.ServerValue.TIMESTAMP,
   });
 };
