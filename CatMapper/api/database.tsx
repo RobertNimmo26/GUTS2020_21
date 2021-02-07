@@ -1,19 +1,19 @@
 import * as firebase from "firebase";
-import "firebase/database";
+import "firebase/firestore";
 import { useState } from "react";
 import { db } from "../config/keys";
 
 export const addCoords = (
-  description: any,
+  name: any,
   latitude: any,
   longitude: any,
-  location: any
+  description: any
 ) => {
   db.ref("/cats").push({
-    description: description,
+    name: name,
     latitude: latitude,
     longitude: longitude,
-    location: location,
+    description: description,
     createdAt: firebase.database.ServerValue.TIMESTAMP,
   });
 };
@@ -42,6 +42,23 @@ export const getCats = () => {
   );
 
   return cats;
+
+  // const cats: { [index: string]: never[] } = [];
+  // const ref = db.ref("/cats");
+  // ref.once("value", (snapshot) => {
+  //   snapshot.forEach((snapshotchild) => {
+  //     snapshotchild.forEach((data) => {
+  //       const obj = {};
+  //       Object.keys(cats).forEach((item) => {
+  //         obj[cats[item].name] = {
+  //           latitude: cats[item].latitude,
+  //           longitude: cats[item].longitude,
+  //         };
+  //       });
+  //       console.log(obj);
+  //     });
+  //   });
+  // });
 };
 
 export const getCoords = () => {
@@ -77,7 +94,6 @@ export const GetCoordsObject = () => {
     "value",
     function (snapshot) {
       // Array of Cats
-
       snapshot.forEach((cat) => {
         // Pushing the Latitude and Longitude objects pair by pair to the array
         coords.push({

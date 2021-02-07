@@ -13,6 +13,12 @@ import { View } from "react-native";
 import { addCoords, getCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
+const LOCATION_SETTINGS = {
+  accuracy: Location.Accuracy.Balanced,
+  timeInterval: 200,
+  distanceInterval: 0,
+};
+
 export default function HomeScreen() {
   const [location, setLocation] = useState(Object);
   const [errorMsg, setErrorMsg] = useState("");
@@ -73,10 +79,12 @@ export default function HomeScreen() {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-    setLatitude(location.coords.latitude);
-    setLongitude(location.coords.longitude);
+    await Location.watchPositionAsync(LOCATION_SETTINGS, (Location) => {
+      let coords = Location.coords;
+      setLocation(location);
+      setLatitude(coords.latitude);
+      setLongitude(coords.longitude);
+    });
 
     return true;
   }
