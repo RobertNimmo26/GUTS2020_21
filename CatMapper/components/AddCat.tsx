@@ -25,8 +25,9 @@ export default function AddCat(props: { latitude: number; longitude: number }) {
           setInputLocation("");
         }}
         theme={{ roundness: 40 }}
+        color="#FF0000"
         style={{
-          width: 200,
+          width: 300,
           margin: 22,
           alignSelf: "center",
         }}

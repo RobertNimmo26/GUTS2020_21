@@ -63,6 +63,8 @@ export default function MapComponent(props: {
     );
   }
 
+  
+
   return (
     <View style={styles.container}>
       <MapView
