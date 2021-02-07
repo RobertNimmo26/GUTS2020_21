@@ -56,6 +56,7 @@ export default function MapComponent(props: {
           latitudeDelta: 0.09,
           longitudeDelta: 0.0121,
         }}
+        showsUserLocation={true}
       >
         <Heatmap points={points} opacity={1} radius={40} />
       </MapView>
