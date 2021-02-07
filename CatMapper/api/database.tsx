@@ -83,3 +83,28 @@ export const getCoords = () => {
     return coords;
     
 };
+
+export const GetCoordsObject = () => {
+    // Array of Coordinates
+    var coords: Object[] = [];
+
+    const ref = db.ref("/cats");
+    ref.on("value", function (snapshot) {
+        // Array of Cats
+
+
+        snapshot.forEach((cat) => {
+            // Pushing the Latitude and Longitude objects pair by pair to the array
+            coords.push({ latitude: cat.val().latitude, longitude: cat.val().longitude, weight: 1 });
+            //console.log(cat.val().latitude);
+        })
+
+
+    }, function (errorObject: { code: string; }) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    console.log("DB: c" + coords);
+    return coords;
+
+};
