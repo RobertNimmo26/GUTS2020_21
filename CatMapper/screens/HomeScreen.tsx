@@ -6,11 +6,12 @@ import { Button } from "react-native-paper";
 
 import MapComponent from "../components/MapComponent";
 import AddCat from "../components/AddCat";
+import ClosestCat from "../components/ClosestCat";
 
 import { Text } from "../components/Themed";
 import { View } from "react-native";
 
-import { addCoords, getCoords } from "../api/database";
+import { GetNearestCat, getCoords, GetCat } from "../api/database";
 import { useEffect, useState } from "react";
 
 const LOCATION_SETTINGS = {
@@ -24,6 +25,8 @@ export default function HomeScreen() {
   const [errorMsg, setErrorMsg] = useState("");
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [nearestCatDes, setNearestCatdes] = useState("");
+  const [nearestCatLoc, setNearestCatLoc] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -52,18 +55,22 @@ export default function HomeScreen() {
         <View style={styles.separator} />
         <Text style={styles.title}>Are there any cats here?</Text>
         <AddCat latitude={latitude} longitude={longitude}></AddCat>
-        <Button
+        <ClosestCat Description={nearestCatDes} Location={nearestCatLoc}></ClosestCat>
+        {/* <Button
           mode="contained"
-          onPress={() => fetchCatLocations()}
+          onPress={() => {
+            fetchLocation();
+            fetchNearestCatLocation(latitude, longitude);
+          }}
           theme={{ roundness: 40 }}
           style={{
-            width: 200,
+            width: 300,
             margin: 5,
             alignSelf: "center",
           }}
         >
           Nearest Cat
-        </Button>
+        </Button> */}
         <Text style={styles.normal}>
           Coords are: {text}
           {"\n"}
@@ -84,6 +91,8 @@ export default function HomeScreen() {
       setLocation(location);
       setLatitude(coords.latitude);
       setLongitude(coords.longitude);
+
+      fetchNearestCatLocation(latitude, longitude);
     });
 
     return true;
@@ -91,6 +100,19 @@ export default function HomeScreen() {
 
   async function fetchCatLocations() {
     let locs = await getCoords();
+  }
+
+  async function fetchNearestCatLocation(latitude: number, longitude: number){
+    let loc = await GetNearestCat(latitude, longitude);
+    loc.sort((a, b) => (a.distance > b.distance) ? 1 : (a.distance === b.distance) ? ((a.distance > b.distance) ? 1 : -1) : -1);
+    // console.log(loc[0]);
+
+    const closestCatObject : object = await GetCat(loc[0].catId);
+    // console.log(closestCatObject);
+    setNearestCatdes(closestCatObject.description);
+    setNearestCatLoc(closestCatObject.location);
+
+
   }
 }
 
