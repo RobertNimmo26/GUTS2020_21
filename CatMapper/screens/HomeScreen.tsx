@@ -13,115 +13,130 @@ import { View } from "react-native";
 import { addCoords, getCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
+const LOCATION_SETTINGS = {
+    accuracy: Location.Accuracy.Balanced,
+    timeInterval: 200,
+    distanceInterval: 0,
+};
+
 export default function TabOneScreen() {
-  const [location, setLocation] = useState(Object);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+    const [location, setLocation] = useState(Object);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
 
-  useEffect(() => {
-    (async () => {
-      fetchLocation();
-      fetchCatLocations()
-    })();
-  }, []);
-
-  let text = <Text>Waiting...</Text>;
-  if (errorMsg != "") {
-    text = <Text>Error</Text>;
-  } else if (location) {
-    text = (
-      <Text>
-        {latitude} {longitude}
-      </Text>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <View style={{ flex: 3 }}>
-        <MapComponent latitude={latitude} longitude={longitude} />
-      </View>
-      <View style={{ flex: 2 }}>
-        {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
-        <View style={styles.separator} />
-        <Text style={styles.title}>Are there any cats here?</Text>
-        <PaperButton
-          icon="cat"
-          mode="contained"
-          onPress={() => {
+    useEffect(() => {
+        (async () => {
             fetchLocation();
-            addCoords("hello", latitude, longitude, "test");
-          }}
-          theme={{ roundness: 40 }}
-          style={{
-            width: 200,
-            margin: 22,
-            alignSelf: "center",
-          }}
-        >
-          Found a cat!
-        </PaperButton>
-        <PaperButton
-          mode="contained"
-          onPress={() => fetchCatLocations()}
-          theme={{ roundness: 40 }}
-          style={{
-            width: 200,
-            margin: 5,
-            alignSelf: "center",
-          }}
-        >
-          getCoords()...
-        </PaperButton>
-        <Text style={styles.normal}>
-          Coords are: {text}
-          {"\n"}
-        </Text>
-      </View>
-    </View>
-  );
+            fetchCatLocations()
+        })();
+    }, []);
 
-  async function fetchLocation() {
-    let { status } = await Location.requestPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
+    let text = <Text>Waiting...</Text>;
+    if (errorMsg != "") {
+        text = <Text>Error</Text>;
+    } else if (location) {
+        text = (
+            <Text>
+                {latitude} {longitude}
+            </Text>
+        );
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-    setLatitude(location.coords.latitude);
-    setLongitude(location.coords.longitude);
+    return (
+        <View style={styles.container}>
+            <View style={{ flex: 3 }}>
+                <MapComponent latitude={latitude} longitude={longitude} />
+            </View>
+            <View style={{ flex: 2 }}>
+                {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
+                <View style={styles.separator} />
+                <Text style={styles.title}>Are there any cats here?</Text>
+                <PaperButton
+                    icon="cat"
+                    mode="contained"
+                    color="#fc3003"
+                    onPress={() => {
+                        fetchLocation();
+                        addCoords("hello", latitude, longitude, "test");
+                    }}
+                    theme={{ roundness: 40 }}
+                    style={{
+                        flex: 1,
+                        width: 300,
+                        margin: 22,
+                        alignSelf: "center",
+                    }}
+                >
+                    Found a cat!
+        </PaperButton>
+                <PaperButton
+                    mode="contained"
+                    onPress={() => fetchCatLocations()}
+                    theme={{ roundness: 40 }}
+                    style={{
+                        
+                        width: 200,
+                        margin: 5,
+                        alignSelf: "center",
+                    }}
+                >
+                    getCoords()...
+        </PaperButton>
+                <Text style={styles.normal}>
+                    Coords are: {text}
+                    {"\n"}
+                </Text>
+            </View>
+        </View>
+    );
 
-    return true;
-  }
+    async function fetchLocation() {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== "granted") {
+            setErrorMsg("Permission to access location was denied");
+            return;
+        }
 
-  async function fetchCatLocations() {
-    let locs = await getCoords();
+        await Location.watchPositionAsync(
+            LOCATION_SETTINGS, Location => {
+                let coords = Location.coords;
+                setLocation(location);
+                setLatitude(coords.latitude);
+                setLongitude(coords.longitude);
+            }
+        );
+       
+        return true;
+    }
 
-  }
+    async function fetchCatLocations() {
+        let locs = await getCoords();
+
+    }
 }
 
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  normal: {
-    fontSize: 15,
-    textAlign: "center",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+    container: {
+        flex: 1,
+        justifyContent: "center",
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    normal: {
+        fontSize: 15,
+        textAlign: "center",
+    },
+    separator: {
+        marginVertical: 30,
+        height: 1,
+        width: "80%",
+    },
 });
+
+
