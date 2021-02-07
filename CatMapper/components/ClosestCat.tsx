@@ -15,14 +15,11 @@ export default function closestCat(props: {
   catLatitude: number;
   catLongitude: number;
 }) {
-  const [description, setInputDesciption] = useState("");
-  const [location, setInputLocation] = useState("");
   const [isDialogVisible, setIsDialogVisible] = useState(false);
-
-  let catDescription = props.Description;
-  let catLocation = props.Location;
-  let catLatitude = props.catLatitude;
-  let catLongitude = props.catLongitude;
+  const [catDescription, setCatDescription] = useState("No cat found 😥");
+  const [catLocation, setCatLocation] = useState("");
+  const [catLatitude, setCatLatitude] = useState(0);
+  const [catLongitude, setCatLongitude] = useState(0);
 
   let text = (
     <Text>
@@ -37,8 +34,10 @@ export default function closestCat(props: {
         mode="contained"
         onPress={() => {
           setIsDialogVisible(true);
-          setInputDesciption("");
-          setInputLocation("");
+          setCatLatitude(props.catLatitude);
+          setCatLongitude(props.catLongitude);
+          setCatDescription(props.Description);
+          setCatLocation(props.Location);
         }}
         theme={{ roundness: 40 }}
         style={{
