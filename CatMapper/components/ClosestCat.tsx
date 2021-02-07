@@ -12,13 +12,20 @@ import { Text } from "../components/Themed";
 export default function closestCat(props: {
   Description: string;
   Location: string;
+  catLatitude: number;
+  catLongitude: number;
 }) {
-  const [description, setInputDesciption] = useState("");
-  const [location, setInputLocation] = useState("");
   const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [catDescription, setCatDescription] = useState("No cat found 😥");
+  const [catLocation, setCatLocation] = useState("");
+  const [catLatitude, setCatLatitude] = useState(0);
+  const [catLongitude, setCatLongitude] = useState(0);
 
-  let catDescription = props.Description;
-  let catLocation = props.Location;
+  let text = (
+    <Text>
+      {catLatitude} {catLongitude}
+    </Text>
+  );
 
   return (
     <View>
@@ -27,8 +34,10 @@ export default function closestCat(props: {
         mode="contained"
         onPress={() => {
           setIsDialogVisible(true);
-          setInputDesciption("");
-          setInputLocation("");
+          setCatLatitude(props.catLatitude);
+          setCatLongitude(props.catLongitude);
+          setCatDescription(props.Description);
+          setCatLocation(props.Location);
         }}
         theme={{ roundness: 40 }}
         style={{
@@ -51,6 +60,10 @@ export default function closestCat(props: {
             <Text style={styles.normal}>{catDescription}</Text>
             <Text style={styles.title}>Description</Text>
             <Text style={styles.normal}>{catLocation}</Text>
+            <Text style={styles.normal}>
+              Coords are: {text}
+              {"\n"}
+            </Text>
           </Dialog.Content>
         </Dialog>
       </Portal>
