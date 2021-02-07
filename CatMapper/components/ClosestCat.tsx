@@ -9,21 +9,21 @@ import { Text } from "../components/Themed";
 // import longitude from "../screens/HomeScreen";
 // import latitude from "../screens/HomeScreen";
 
-export default function closestCat(props: {Description: string; Location: string}) {
+export default function closestCat(props: {
+  Description: string;
+  Location: string;
+}) {
   const [description, setInputDesciption] = useState("");
   const [location, setInputLocation] = useState("");
   const [isDialogVisible, setIsDialogVisible] = useState(false);
- 
-  
 
   let catDescription = props.Description;
   let catLocation = props.Location;
-    
 
   return (
     <View>
       <Button
-        icon="cat"
+        icon="compass"
         mode="contained"
         onPress={() => {
           setIsDialogVisible(true);
@@ -33,7 +33,7 @@ export default function closestCat(props: {Description: string; Location: string
         theme={{ roundness: 40 }}
         style={{
           width: 300,
-          margin: 22,
+          margin: 5,
           alignSelf: "center",
         }}
       >

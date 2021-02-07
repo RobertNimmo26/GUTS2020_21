@@ -55,7 +55,10 @@ export default function HomeScreen() {
         <View style={styles.separator} />
         <Text style={styles.title}>Are there any cats here?</Text>
         <AddCat latitude={latitude} longitude={longitude}></AddCat>
-        <ClosestCat Description={nearestCatDes} Location={nearestCatLoc}></ClosestCat>
+        <ClosestCat
+          Description={nearestCatDes}
+          Location={nearestCatLoc}
+        ></ClosestCat>
         {/* <Button
           mode="contained"
           onPress={() => {
@@ -102,17 +105,23 @@ export default function HomeScreen() {
     let locs = await getCoords();
   }
 
-  async function fetchNearestCatLocation(latitude: number, longitude: number){
+  async function fetchNearestCatLocation(latitude: number, longitude: number) {
     let loc = await GetNearestCat(latitude, longitude);
-    loc.sort((a, b) => (a.distance > b.distance) ? 1 : (a.distance === b.distance) ? ((a.distance > b.distance) ? 1 : -1) : -1);
+    loc.sort((a, b) =>
+      a.distance > b.distance
+        ? 1
+        : a.distance === b.distance
+        ? a.distance > b.distance
+          ? 1
+          : -1
+        : -1
+    );
     // console.log(loc[0]);
 
-    const closestCatObject : object = await GetCat(loc[0].catId);
+    const closestCatObject: object = await GetCat(loc[0].catId);
     // console.log(closestCatObject);
     setNearestCatdes(closestCatObject.description);
     setNearestCatLoc(closestCatObject.location);
-
-
   }
 }
 
@@ -129,6 +138,10 @@ const styles = StyleSheet.create({
   normal: {
     fontSize: 15,
     textAlign: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   separator: {
     marginVertical: 30,
