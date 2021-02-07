@@ -2,10 +2,10 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import * as Location from "expo-location";
 
-import { Button as PaperButton } from "react-native-paper";
+import { Button } from "react-native-paper";
 
-// import EditScreenInfo from "../components/EditScreenInfo";
 import MapComponent from "../components/MapComponent";
+import AddCat from "../components/AddCat";
 
 import { Text } from "../components/Themed";
 import { View } from "react-native";
@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { addCoords, getCoords } from "../api/database";
 import { useEffect, useState } from "react";
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
   const [location, setLocation] = useState(Object);
   const [errorMsg, setErrorMsg] = useState("");
   const [latitude, setLatitude] = useState(0);
@@ -42,26 +42,10 @@ export default function TabOneScreen() {
         <MapComponent latitude={latitude} longitude={longitude} />
       </View>
       <View style={{ flex: 2 }}>
-        {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
         <View style={styles.separator} />
         <Text style={styles.title}>Are there any cats here?</Text>
-        <PaperButton
-          icon="cat"
-          mode="contained"
-          onPress={() => {
-            fetchLocation();
-            addCoords("hello", { latitude }, { longitude }, "test");
-          }}
-          theme={{ roundness: 40 }}
-          style={{
-            width: 200,
-            margin: 22,
-            alignSelf: "center",
-          }}
-        >
-          Found a cat!
-        </PaperButton>
-        <PaperButton
+        <AddCat latitude={latitude} longitude={longitude}></AddCat>
+        <Button
           mode="contained"
           onPress={() => getCoords()}
           theme={{ roundness: 40 }}
@@ -72,7 +56,7 @@ export default function TabOneScreen() {
           }}
         >
           getCoords()...
-        </PaperButton>
+        </Button>
         <Text style={styles.normal}>
           Coords are: {text}
           {"\n"}
