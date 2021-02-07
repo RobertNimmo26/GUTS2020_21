@@ -42,8 +42,3 @@ The app can be improved by adding a feature of lost cats. Users can upload pictu
 - Ying Li
 
 - Robert Nimmo
-
-
-
-
-
