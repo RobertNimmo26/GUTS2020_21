@@ -12,6 +12,8 @@ import { Text } from "../components/Themed";
 export default function closestCat(props: {
   Description: string;
   Location: string;
+  catLatitude: number;
+  catLongitude: number;
 }) {
   const [description, setInputDesciption] = useState("");
   const [location, setInputLocation] = useState("");
@@ -19,6 +21,14 @@ export default function closestCat(props: {
 
   let catDescription = props.Description;
   let catLocation = props.Location;
+  let catLatitude = props.catLatitude;
+  let catLongitude = props.catLongitude;
+
+  let text = (
+    <Text>
+      {catLatitude} {catLongitude}
+    </Text>
+  );
 
   return (
     <View>
@@ -51,6 +61,10 @@ export default function closestCat(props: {
             <Text style={styles.normal}>{catDescription}</Text>
             <Text style={styles.title}>Description</Text>
             <Text style={styles.normal}>{catLocation}</Text>
+            <Text style={styles.normal}>
+              Coords are: {text}
+              {"\n"}
+            </Text>
           </Dialog.Content>
         </Dialog>
       </Portal>

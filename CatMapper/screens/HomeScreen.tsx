@@ -27,6 +27,8 @@ export default function HomeScreen() {
   const [longitude, setLongitude] = useState(0);
   const [nearestCatDes, setNearestCatdes] = useState("");
   const [nearestCatLoc, setNearestCatLoc] = useState("");
+  const [catLatitude, setCatLatitude] = useState(0);
+  const [catLongitude, setCatLongitude] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -58,6 +60,8 @@ export default function HomeScreen() {
         <ClosestCat
           Description={nearestCatDes}
           Location={nearestCatLoc}
+          catLatitude={catLatitude}
+          catLongitude={catLongitude}
         ></ClosestCat>
         {/* <Button
           mode="contained"
@@ -122,6 +126,8 @@ export default function HomeScreen() {
     // console.log(closestCatObject);
     setNearestCatdes(closestCatObject.description);
     setNearestCatLoc(closestCatObject.location);
+    setCatLatitude(closestCatObject.latitude);
+    setCatLongitude(closestCatObject.longitude);
   }
 }
 
