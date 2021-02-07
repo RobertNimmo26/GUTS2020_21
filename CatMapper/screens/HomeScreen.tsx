@@ -62,7 +62,7 @@ export default function HomeScreen() {
             alignSelf: "center",
           }}
         >
-          getCoords()...
+          Nearest Cat
         </Button>
         <Text style={styles.normal}>
           Coords are: {text}

@@ -3,6 +3,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Heatmap } from "react-native-maps";
 import { GetCoordsObject, getCoords } from "../api/database";
+import { ActivityIndicator } from "react-native-paper";
 
 //import fetchLocation from "../screens/TabOneScreen";
 
@@ -44,19 +45,39 @@ export default function MapComponent(props: {
   } else {
     points = catCoords;
   }
+  if (latitude == 0 && longitude == 0) {
+    return (
+      <ActivityIndicator
+        animating={true}
+        size="large"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
+    );
+  }
 
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        region={{
+        initialRegion={{
           latitude: latitude,
           longitude: longitude,
           latitudeDelta: 0.09,
           longitudeDelta: 0.0121,
         }}
         showsUserLocation={true}
+        showsMyLocationButton={true}
+        followsUserLocation={true}
+        scrollEnabled={true}
       >
         <Heatmap points={points} opacity={1} radius={40} />
       </MapView>
