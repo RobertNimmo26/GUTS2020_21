@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import "firebase/firestore";
+import "firebase/database";
 import { useState } from "react";
 import { db } from "../config/keys";
 
@@ -14,7 +14,7 @@ export const addCoords = (
     latitude: latitude,
     longitude: longitude,
     location: location,
-    createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+    createdAt: firebase.database.ServerValue.TIMESTAMP,
   });
 };
 
@@ -46,7 +46,7 @@ export const getCats = () => {
 
 export const getCoords = () => {
   // Array of Coordinates
-  var coords: any[][] = [];
+  var coords: number[][] = [[0, 0]];
 
   const ref = db.ref("/cats");
   ref.on(
@@ -65,5 +65,34 @@ export const getCoords = () => {
     }
   );
 
+  return coords;
+};
+
+export const GetCoordsObject = () => {
+  // Array of Coordinates
+  var coords: Object[] = [];
+
+  const ref = db.ref("/cats");
+  ref.on(
+    "value",
+    function (snapshot) {
+      // Array of Cats
+
+      snapshot.forEach((cat) => {
+        // Pushing the Latitude and Longitude objects pair by pair to the array
+        coords.push({
+          latitude: cat.val().latitude,
+          longitude: cat.val().longitude,
+          weight: 1,
+        });
+        //console.log(cat.val().latitude);
+      });
+    },
+    function (errorObject: { code: string }) {
+      console.log("The read failed: " + errorObject.code);
+    }
+  );
+
+  console.log("DB: c" + coords);
   return coords;
 };

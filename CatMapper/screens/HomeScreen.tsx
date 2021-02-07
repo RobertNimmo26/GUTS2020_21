@@ -22,6 +22,7 @@ export default function HomeScreen() {
   useEffect(() => {
     (async () => {
       fetchLocation();
+      fetchCatLocations();
     })();
   }, []);
 
@@ -47,7 +48,7 @@ export default function HomeScreen() {
         <AddCat latitude={latitude} longitude={longitude}></AddCat>
         <Button
           mode="contained"
-          onPress={() => getCoords()}
+          onPress={() => fetchCatLocations()}
           theme={{ roundness: 40 }}
           style={{
             width: 200,
@@ -78,6 +79,10 @@ export default function HomeScreen() {
     setLongitude(location.coords.longitude);
 
     return true;
+  }
+
+  async function fetchCatLocations() {
+    let locs = await getCoords();
   }
 }
 
